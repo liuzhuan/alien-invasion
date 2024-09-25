@@ -35,6 +35,7 @@ def check_events(setting, screen, ship, bullets):
 
 
 def update_screen(settings, screen, ship, aliens, bullets):
+    '''渲染图像'''
     screen.fill(settings.bg_color)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -74,3 +75,7 @@ def create_alien(settings, screen, aliens, x, y):
     alien.rect.x = alien.x 
     alien.rect.y = alien.rect.height * (1 + 2 * y)
     aliens.add(alien)
+
+def update_aliens(aliens):
+    '''更新所有外星人的位置'''
+    aliens.update()
