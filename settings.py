@@ -11,7 +11,7 @@ class Settings:
         self.fleet_drop_speed = 5
         self.fleet_direction = 1
 
-        self.bullet_speed_factor = 1
+        self.bullet_speed_factor = 3
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = 'purple'
