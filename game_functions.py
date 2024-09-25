@@ -46,6 +46,7 @@ def check_play_button(settings, screen, stats, play_button, ship, aliens, bullet
         reset_game(settings, screen, stats, ship, aliens, bullets)
 
 def reset_game(settings, screen, stats, ship, aliens, bullets):
+    settings.initialize_dynamic_settings()
     pygame.mouse.set_visible(False)
 
     stats.reset_status()
@@ -83,6 +84,7 @@ def check_bullet_alien_collisions(settings, screen, ship, aliens, bullets):
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
     if len(aliens) == 0:
         bullets.empty()
+        settings.increase_speed()
         create_fleet(settings, screen, ship, aliens)
 
 def create_fleet(settings, screen, ship, aliens):
