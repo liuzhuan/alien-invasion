@@ -84,10 +84,13 @@ def create_alien(settings, screen, aliens, x, y):
     alien.rect.y = alien.rect.height * (1 + 2 * y)
     aliens.add(alien)
 
-def update_aliens(settings, aliens):
+def update_aliens(settings, ship, aliens):
     '''更新所有外星人的位置'''
     check_fleet_edges(settings, aliens)
     aliens.update()
+
+    if pygame.sprite.spritecollideany(ship, aliens):
+        print('Ship hit!!!')
 
 def check_fleet_edges(settings, aliens):
     for alien in aliens:
