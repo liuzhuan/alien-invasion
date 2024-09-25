@@ -41,7 +41,7 @@ def check_play_button(settings, screen, stats, play_button, ship, aliens, bullet
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
         pygame.mouse.set_visible(False)
-        
+
         stats.reset_status()
         stats.game_active = True
 
@@ -116,6 +116,7 @@ def ship_hit(settings, stats, screen, ship, aliens, bullets):
         sleep(0.5)
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
 def update_aliens(settings, stats, screen, ship, aliens, bullets):
     '''更新所有外星人的位置'''
