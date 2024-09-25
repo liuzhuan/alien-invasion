@@ -49,21 +49,28 @@ def update_bullets(bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
-def create_fleet(settings, screen, aliens):
+def create_fleet(settings, screen, ship, aliens):
     alien = Alien(settings, screen)
     number_aliens_x = get_number_aliens_x(settings, alien.rect.width)
+    number_rows = get_number_rows(settings, ship.rect.height, alien.rect.height)
 
-    for i in range(number_aliens_x):
-        create_alien(settings, screen, aliens, i)
+    for y in range(number_rows):
+        for x in range(number_aliens_x):
+            create_alien(settings, screen, aliens, x, y)
 
 def get_number_aliens_x(settings, alien_width):
     available_space_x = settings.screen_width - 2 * alien_width
     number_aliens_x = int(available_space_x / (2 * alien_width))
     return number_aliens_x
 
-def create_alien(settings, screen, aliens, i):
+def get_number_rows(settings, ship_height, alien_height):
+    available_space_y = settings.screen_height - 3 * alien_height - ship_height
+    return int(available_space_y / (2 * alien_height))
+
+def create_alien(settings, screen, aliens, x, y):
     alien = Alien(settings, screen)
     alien_width = alien.rect.width
-    alien.x = alien_width + 2 * alien_width * i
+    alien.x = alien_width + 2 * alien_width * x
     alien.rect.x = alien.x 
+    alien.rect.y = alien.rect.height * (1 + 2 * y)
     aliens.add(alien)
