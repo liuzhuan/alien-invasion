@@ -2,6 +2,7 @@ import pygame
 from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
+from alien import Alien
 import game_functions as gf
 
 def run_game():
@@ -11,6 +12,7 @@ def run_game():
     pygame.display.set_caption('Alien Invasion')
 
     ship = Ship(game_settings, screen)
+    alien = Alien(game_settings, screen)
     bullets = Group()
 
     while True:
@@ -19,6 +21,6 @@ def run_game():
         ship.update()
         gf.update_bullets(bullets)
 
-        gf.update_screen(game_settings, screen, ship, bullets)
+        gf.update_screen(game_settings, screen, ship, alien, bullets)
 
 run_game()

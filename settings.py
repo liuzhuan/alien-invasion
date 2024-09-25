@@ -6,6 +6,7 @@ class Settings:
         self.ship_size = (80, 80)
         self.ship_speed_factor = 1.5
 
+        self.alien_size = 80, 80
         self.bullet_speed_factor = 1
         self.bullet_width = 3
         self.bullet_height = 15
