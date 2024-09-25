@@ -76,6 +76,18 @@ def create_alien(settings, screen, aliens, x, y):
     alien.rect.y = alien.rect.height * (1 + 2 * y)
     aliens.add(alien)
 
-def update_aliens(aliens):
+def update_aliens(settings, aliens):
     '''更新所有外星人的位置'''
+    check_fleet_edges(settings, aliens)
     aliens.update()
+
+def check_fleet_edges(settings, aliens):
+    for alien in aliens:
+        if alien.check_edges():
+            change_fleet_direction(settings, aliens)
+            break
+
+def change_fleet_direction(settings, aliens):
+    for alien in aliens.sprites():
+        alien.rect.y += settings.fleet_drop_speed
+    settings.fleet_direction *= -1
