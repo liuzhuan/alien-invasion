@@ -101,6 +101,8 @@ def update_aliens(settings, stats, screen, ship, aliens, bullets):
 
     if pygame.sprite.spritecollideany(ship, aliens):
         ship_hit(settings, stats, screen, ship, aliens, bullets)
+    
+    check_aliens_bottom(settings, stats, screen, ship, aliens, bullets)
 
 def check_fleet_edges(settings, aliens):
     for alien in aliens:
@@ -112,3 +114,10 @@ def change_fleet_direction(settings, aliens):
     for alien in aliens.sprites():
         alien.rect.y += settings.fleet_drop_speed
     settings.fleet_direction *= -1
+
+def check_aliens_bottom(settings, stats, screen, ship, aliens, bullets):
+    screen_rect = screen.get_rect()
+    for alien in aliens.sprites():
+        if alien.rect.bottom >= screen_rect.bottom:
+            ship_hit(settings, stats, screen, ship, aliens, bullets)
+            break
