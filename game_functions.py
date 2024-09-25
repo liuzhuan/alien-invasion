@@ -1,3 +1,4 @@
+from time import sleep
 import pygame
 import sys
 from bullet import Bullet
@@ -84,13 +85,22 @@ def create_alien(settings, screen, aliens, x, y):
     alien.rect.y = alien.rect.height * (1 + 2 * y)
     aliens.add(alien)
 
-def update_aliens(settings, ship, aliens):
+def ship_hit(settings, stats, screen, ship, aliens, bullets):
+    stats.ships_left -= 1
+    aliens.empty()
+    bullets.empty()
+    
+    create_fleet(settings, screen, ship, aliens)
+    ship.center_ship()
+    sleep(0.5)
+
+def update_aliens(settings, stats, screen, ship, aliens, bullets):
     '''更新所有外星人的位置'''
     check_fleet_edges(settings, aliens)
     aliens.update()
 
     if pygame.sprite.spritecollideany(ship, aliens):
-        print('Ship hit!!!')
+        ship_hit(settings, stats, screen, ship, aliens, bullets)
 
 def check_fleet_edges(settings, aliens):
     for alien in aliens:

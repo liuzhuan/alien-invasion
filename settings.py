@@ -3,8 +3,10 @@ class Settings:
         self.screen_width = 800
         self.screen_height = 600
         self.bg_color = (230, 230, 230)
+
         self.ship_size = (60, 60)
         self.ship_speed_factor = 1.5
+        self.ship_limit = 3
 
         self.alien_size = 60, 60
         self.alien_speed_factor = 0.5
@@ -16,6 +18,7 @@ class Settings:
         self.bullet_height = 15
         self.bullet_color = 'purple'
         self.bullets_allowed = 3
+
     
     @property
     def size(self):
