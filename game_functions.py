@@ -25,21 +25,31 @@ def check_keyup_events(event, ship):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
-def check_events(setting, screen, stats, play_button, ship, bullets):
+def check_events(settings, screen, stats, play_button, ship, aliens, bullets):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, setting, screen, ship, bullets)
+            check_keydown_events(event, settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(stats, play_button, mouse_x, mouse_y)
+            check_play_button(settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y)
 
-def check_play_button(stats, play_button, mouse_x, mouse_y):
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
+def check_play_button(settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
+        pygame.mouse.set_visible(False)
+        
+        stats.reset_status()
         stats.game_active = True
+
+        aliens.empty()
+        bullets.empty()
+
+        create_fleet(settings, screen, ship, aliens)
+        ship.center_ship()
 
 def update_screen(settings, screen, stats, ship, aliens, bullets, play_button):
     '''渲染图像'''
