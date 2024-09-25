@@ -51,12 +51,19 @@ def update_bullets(bullets):
 
 def create_fleet(settings, screen, aliens):
     alien = Alien(settings, screen)
-    alien_width = alien.rect.width
+    number_aliens_x = get_number_aliens_x(settings, alien.rect.width)
+
+    for i in range(number_aliens_x):
+        create_alien(settings, screen, aliens, i)
+
+def get_number_aliens_x(settings, alien_width):
     available_space_x = settings.screen_width - 2 * alien_width
     number_aliens_x = int(available_space_x / (2 * alien_width))
-    
-    for i in range(number_aliens_x):
-        alien = Alien(settings, screen)
-        alien.x = alien_width + 2 * alien_width * i
-        alien.rect.x = alien.x 
-        aliens.add(alien)
+    return number_aliens_x
+
+def create_alien(settings, screen, aliens, i):
+    alien = Alien(settings, screen)
+    alien_width = alien.rect.width
+    alien.x = alien_width + 2 * alien_width * i
+    alien.rect.x = alien.x 
+    aliens.add(alien)
