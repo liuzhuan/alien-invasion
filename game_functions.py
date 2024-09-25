@@ -86,13 +86,16 @@ def create_alien(settings, screen, aliens, x, y):
     aliens.add(alien)
 
 def ship_hit(settings, stats, screen, ship, aliens, bullets):
-    stats.ships_left -= 1
-    aliens.empty()
-    bullets.empty()
-    
-    create_fleet(settings, screen, ship, aliens)
-    ship.center_ship()
-    sleep(0.5)
+    if stats.ships_left > 0:
+        stats.ships_left -= 1
+        aliens.empty()
+        bullets.empty()
+        
+        create_fleet(settings, screen, ship, aliens)
+        ship.center_ship()
+        sleep(0.5)
+    else:
+        stats.game_active = False
 
 def update_aliens(settings, stats, screen, ship, aliens, bullets):
     '''更新所有外星人的位置'''
