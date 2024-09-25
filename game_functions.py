@@ -4,7 +4,7 @@ import sys
 from bullet import Bullet
 from alien import Alien
 
-def check_keydown_events(event, setting, screen, ship, bullets):
+def check_keydown_events(event, setting, stats, screen, ship, aliens, bullets):
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
@@ -13,6 +13,9 @@ def check_keydown_events(event, setting, screen, ship, bullets):
         fire_bullet(setting, screen, ship, bullets)
     elif event.key == pygame.K_q:
         sys.exit()
+    elif event.key == pygame.K_RETURN:
+        if not stats.game_active:
+            reset_game(setting, screen, stats, ship, aliens, bullets)
 
 def fire_bullet(setting, screen, ship, bullets):
     if len(bullets) < setting.bullets_allowed:
@@ -30,7 +33,7 @@ def check_events(settings, screen, stats, play_button, ship, aliens, bullets):
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, settings, screen, ship, bullets)
+            check_keydown_events(event, settings, stats, screen, ship, aliens, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -40,16 +43,19 @@ def check_events(settings, screen, stats, play_button, ship, aliens, bullets):
 def check_play_button(settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
-        pygame.mouse.set_visible(False)
+        reset_game(settings, screen, stats, ship, aliens, bullets)
 
-        stats.reset_status()
-        stats.game_active = True
+def reset_game(settings, screen, stats, ship, aliens, bullets):
+    pygame.mouse.set_visible(False)
 
-        aliens.empty()
-        bullets.empty()
+    stats.reset_status()
+    stats.game_active = True
 
-        create_fleet(settings, screen, ship, aliens)
-        ship.center_ship()
+    aliens.empty()
+    bullets.empty()
+
+    create_fleet(settings, screen, ship, aliens)
+    ship.center_ship()
 
 def update_screen(settings, screen, stats, ship, aliens, bullets, play_button):
     '''渲染图像'''
