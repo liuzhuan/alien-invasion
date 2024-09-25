@@ -4,11 +4,15 @@ class Ship():
     def __init__(self, settings, screen):
         self.settings = settings
         self.screen = screen
+
+        # 加载飞船图片
         self.image = pygame.image.load('images/ship.png').convert_alpha()
         # 调整飞船尺寸
         self.image = pygame.transform.scale(self.image, self.settings.ship_size)
+
         self.rect = self.image.get_rect()
         self.screen_rect = self.screen.get_rect()
+        # 设定飞船初始位置
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
 
