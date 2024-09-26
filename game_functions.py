@@ -58,13 +58,15 @@ def reset_game(settings, screen, stats, ship, aliens, bullets):
     create_fleet(settings, screen, ship, aliens)
     ship.center_ship()
 
-def update_screen(settings, screen, stats, ship, aliens, bullets, play_button):
+def update_screen(settings, screen, stats, sb, ship, aliens, bullets, play_button):
     '''渲染图像'''
     screen.fill(settings.bg_color)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+
+    sb.show_score()
 
     if not stats.game_active:
         play_button.draw_button()
